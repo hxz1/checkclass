@@ -1,0 +1,51 @@
+<include file="Public:head"/>   
+<link rel="stylesheet" type="text/css" href="__HOME__/layer/2.4/skin/layer.css" />
+<link rel="stylesheet" type="text/css" href="__HOME__/layui/css/layui.css" />            
+    <h2 class="mbx">
+        新闻中心 &gt; 热闻通知</h2>
+    <div class="morebt" style="padding-top: 0px;">
+        <ul>
+            <li><a class="tab2" href="Application.aspx.html">热闻通知</a></li>
+        </ul>
+    </div>
+    <div class="cztable">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr style="height: 25px" align="center">
+                    <th>编号</th>
+                    <th>通知/新闻名称</th>
+                    <th>发布人</th>
+                    <th>点击量</th>
+                    <th scope="col">发布时间</th>
+                </tr>
+                <volist name="data" id="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td><a href="{:U('details',array('id'=>$vo['id']))}">{$vo.title}</a></td>
+                    <td>{$vo.author}</td>
+                    <td>{$vo.click}</td>
+                    <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+        <div class="pagination ue-clear">
+        <div class="pagin-list">
+            {$show}
+        </div>
+        <div class="pxofy" style="margin-top: 2px;">显示第 1 条到 {$count}条记录，总共{$count}条记录</div>
+        </div>
+    </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="__HOME__/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__HOME__/layui/layui.js"></script>
+<script type="text/javascript">
+function member_edit(title,url,id,w,h){
+    layer_show(title,url,w,h);
+}
+</script>

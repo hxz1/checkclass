@@ -1,0 +1,40 @@
+<include file="Public:head"/>     
+<h2 class="mbx">个人信息 &gt; 我的课程&nbsp;&nbsp;&nbsp;</h2>  
+<div class="morebt" style="padding-top: 0px;">
+<ul id="ulStudMsgHeadTab">
+    <li><a class="tab2" onclick="" href="{:U('Teacher/index')}">个人信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('Teacher/edit')}">修改信息</a> </li>
+    <li><a class="tab1" onclick="" href="{:U('Teacher/myclass')}">我的课程</a></li>
+</ul>
+</div>
+<div class="cztable">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+       <th>序号</th>
+       <th>课程名</th>
+       <th>学分</th>
+       <th>已选数量</th>
+       <th>剩余数量</th>
+       <th>上课地点</th>
+       <th>上课时间</th>
+       </tr>
+       <tr>
+       <volist name="data" id="data">
+        <td>{$data.id}</td>
+        <td>{$data.name}</td>
+        <td>{$data.credit}</td>
+        <td>{$data.nums}</td>
+        <td>{$data.tol_nums}</td>
+        <td>{$data.cla_place}</td>
+        <td align="center">星期{$data.weekdays}&nbsp;&nbsp;&nbsp;{$data.jieci}节</td>
+       </tr>
+       </volist>
+    </table>
+</div>
+
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

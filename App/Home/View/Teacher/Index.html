@@ -1,0 +1,48 @@
+<include file="Public:head"/>        
+<h2 class="mbx">个人信息 &gt; 个人信息 &nbsp;&nbsp;&nbsp;</h2>       
+<div class="morebt" style="padding-top: 0px;">
+<ul id="ulStudMsgHeadTab">
+    <li><a class="tab1" onclick="" href="{:U('Teacher/index')}">个人信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('Teacher/edit')}">修改信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('Teacher/myclass')}">我的课程</a></li>
+</ul>
+</div>
+<div class="cztable">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="right" width="80">姓名：</td>
+            <td width="260">{$data.realname}&nbsp;</td>
+            <td align="right" width="90">教工号：</td>
+            <td>{$data.teach_id}&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right">性别：</td>
+            <td>{$data.sex}&nbsp;</td>
+             <td align="right">注册时间：</td>
+            <td>{$data.add_time|date="Y-m-d H:i:s",###}&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right">手机：</td>
+            <td>{$data.phone}&nbsp;</td>
+            <td align="right">邮箱：</td>
+            <td>{$data.email}&nbsp;</td>
+        </tr>
+        <tr align="center">
+            <td colspan="5" height="30">
+                <div align="center">
+                    <a href="{:U('edit')}">
+                    <input type="button" value="修改信息" class="btn btn-default" />
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
+

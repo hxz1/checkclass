@@ -1,0 +1,75 @@
+<include file="Public:_meta"/>
+<style type="text/css">
+.main p label {
+    float: left;
+    width: 82px;
+    text-align: left;
+}
+.main p input[type="text"] {
+    width: 240px;
+    height: 28px;
+    padding: 0px 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(197, 214, 224);
+    border-image: initial;
+    outline: none;
+}
+</style>
+<title>添加管理员</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add" action="{:U('add')}" method="post" enctype="multipart/form-data">
+    <input name="id" id="id" type="hidden" value="{$data.id}" />
+	<div class="main">
+	<p class="short-input ue-clear">
+    	<label>标题：</label>
+        <input name="title" id="title" type="text" value="{$data.title}" placeholder="标题..." />
+    </p>
+    <p class="short-input ue-clear" style="margin-top: 10px;">
+    	<label>作者：</label>
+        <input name="author" type="text" id="author" value="{$data.author}" placeholder="作者..." />
+    </p>
+    <p class="short-input ue-clear" style="margin-top: 10px;">
+    	<label>内容：</label>
+        <script type="text/plain" id="editor" name="content" style="width: 800px;height: 300px;">{$data.content|htmlspecialchars_decode}</script>
+    </p>
+	</div>
+	<a href="javascript:;" class='btn btn-success tj' style="margin-left: 100px;
+    margin-right: 20px;">确定</a>
+    <a href="javascript:;" class='btn btn-default reset'>清空内容</a>
+	</form>
+</article>
+
+</body>
+</html>
+<script type="text/javascript" src="__ADMIN__/ue/ueditor.config.js"></script>
+<script type="text/javascript" src="__ADMIN__/ue/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/ue/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+var ue = UE.getEditor('editor');
+$('.tj').click(function(){
+    var id = $('#id').val(); 
+    var title = $('#title').val(); 
+    var author = $('#author').val(); 
+    var content = UE.getEditor('editor').getContent()
+   $.ajax({url:"{:U('add')}",type:"post",data:{'id':id,'title':title,'author':author,'content':content},success:function(res){
+                if(res.code == 1){
+                    layer.msg(res.msg, {
+                      icon: 1,
+                      time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                      parent.location.reload();
+                    }); 
+                }else if(res.code == 2){
+                    layer.msg(res.msg, {
+                      icon: 2,
+                      time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                    });
+                }
+            }});  
+})
+
+</script>
+<include file="Public:_footer"/>

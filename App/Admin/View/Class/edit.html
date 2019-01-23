@@ -1,0 +1,222 @@
+<include file="Public:_meta"/>
+<title>修改课程信息</title>
+</head>
+<body>
+<article class="page-container">
+  <form class="form form-horizontal" >
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>课程名：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+      <input type="text" class="input-text" value="{$data.name}" data-id="{$data.id}" id="name">
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学分：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+      <input type="number" class="input-text" value="{$data.credit}" id="credit">
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>可选人数：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+      <input type="number" class="input-text" value="{$data.tol_nums}" id="tol_nums">
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属专业：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+          <select id="selA">
+               <option value="">请选择</option>
+               <volist name="major" id="vo">
+               <option value="{$vo.id}" <if condition="$data['major_id'] eq $vo['id']">selected</if>>{$vo.name}
+               </option>
+               </volist>
+          </select>
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上课老师：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+      <select id="selD">
+               <option value="">请选择</option>
+               <volist name="data1" id="vo">
+               <option value="{$vo.id}" <if condition="$data['teach_id'] eq $vo['id']">selected</if>>{$vo.realname}</option>
+               </volist>
+            </select>
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上课地点：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+      <input type="text" class="input-text" value="{$data.cla_place}" id="cla_place">
+    </div>
+  </div>
+
+  <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上课时间：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+        星期：<select id="selB">
+              <switch name="data.weekdays">
+               <case value="一">
+               <option>请选择</option>
+               <option value ="一" selected>一</option>     
+               <option value ="二">二</option>     
+               <option value ="三">三</option>     
+               <option value ="四">四</option>     
+               <option value ="五">五</option>     
+               <option value ="六">六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="二">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二" selected>二</option>     
+               <option value ="三">三</option>     
+               <option value ="四">四</option>     
+               <option value ="五">五</option>     
+               <option value ="六">六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="三">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二">二</option>     
+               <option value ="三" selected>三</option>     
+               <option value ="四">四</option>     
+               <option value ="五">五</option>     
+               <option value ="六">六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="四">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二">二</option>     
+               <option value ="三">三</option>     
+               <option value ="四" selected>四</option>     
+               <option value ="五">五</option>     
+               <option value ="六">六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="五">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二">二</option>     
+               <option value ="三">三</option>     
+               <option value ="四">四</option>     
+               <option value ="五" selected>五</option>     
+               <option value ="六">六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="六">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二">二</option>     
+               <option value ="三">三</option>     
+               <option value ="四">四</option>     
+               <option value ="五">五</option>     
+               <option value ="六" selected>六</option>     
+               <option value ="日">日</option>
+               </case>
+               <case value="日">
+               <option>请选择</option>
+               <option value ="一">一</option>     
+               <option value ="二">二</option>     
+               <option value ="三">三</option>     
+               <option value ="四">四</option>     
+               <option value ="五">五</option>     
+               <option value ="六">六</option>     
+               <option value ="日" selected>日</option>
+               </case>
+               </switch>     
+            </select>
+        课节：<select id="selC">
+               <switch name="data.jieci">
+               <case value="一二">
+               <option>请选择</option>
+               <option value ="一二" selected>一二</option>    
+               <option value ="三四">三四</option>    
+               <option value ="五六">五六</option>    
+               <option value ="七八">七八</option>    
+               <option value ="九十">九十</option> 
+               </case>
+               <case value="三四">
+               <option>请选择</option>
+               <option value ="一二">一二</option>    
+               <option value ="三四" selected>三四</option>    
+               <option value ="五六">五六</option>    
+               <option value ="七八">七八</option>    
+               <option value ="九十">九十</option> 
+               </case>
+               <case value="五六">
+               <option>请选择</option>
+               <option value ="一二">一二</option>    
+               <option value ="三四">三四</option>    
+               <option value ="五六" selected>五六</option>    
+               <option value ="七八">七八</option>    
+               <option value ="九十">九十</option> 
+               </case>
+               <case value="七八">
+               <option>请选择</option>
+               <option value ="一二">一二</option>    
+               <option value ="三四">三四</option>    
+               <option value ="五六">五六</option>    
+               <option value ="七八" selected>七八</option>    
+               <option value ="九十">九十</option> 
+               </case>
+               <case value="九十">
+               <option>请选择</option>
+               <option value ="一二">一二</option>    
+               <option value ="三四">三四</option>    
+               <option value ="五六">五六</option>    
+               <option value ="七八">七八</option>    
+               <option value ="九十" selected>九十</option> 
+               </case>
+               </switch>     
+             </select>
+    </div>
+  </div>
+
+  <div class="row cl">
+    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+      <input class="btn btn-primary radius tj" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+    </div>
+  </div>
+  </form>
+</article>
+
+</body>
+</html>
+<include file="Public:_footer"/>
+<script type="text/javascript">
+  $('.tj').click(function(){
+    var id = $("#name").data('id');
+    var name = $("#name").val();
+    var credit = $("#credit").val();
+    var tol_nums = $("#tol_nums").val();
+    var teach_id = $("#selD option:selected").val();
+    var cla_place = $("#cla_place").val();
+    var weekdays = $("#selB option:selected").val();
+    var major_id = $("#selA option:selected").val();
+    var jieci = $("#selC option:selected").val();
+     $.ajax({url:"{:U('edit')}",type:"post",data:{'id':id,'name':name,'credit':credit,'tol_nums':tol_nums,'teach_id':teach_id,'major_id':major_id,'cla_place':cla_place,'weekdays':weekdays,'jieci':jieci},success:function(res){
+          if(res.code == 1){
+            layer.msg(res.msg,{
+              icon: 1,
+              time: 1000 //1秒关闭（如果不配置，默认是3秒）
+            }, function(){
+              parent.location.reload();
+            }); 
+          }else if(res.code == 2){
+            layer.msg(res.msg, {
+              icon: 2,
+              time: 1000 //1秒关闭（如果不配置，默认是3秒）
+            });
+          }
+        }}); 
+  });
+</script>

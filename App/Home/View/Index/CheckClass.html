@@ -1,0 +1,127 @@
+<include file="Public:head"/> 
+<style type="text/css">
+.cztable{
+    text-align:center;
+}
+.pagination .pxofy{
+    margin-top: -29px;
+}
+</style>    
+<h2 class="mbx">个人信息 &gt; 在线选课</h2>  
+<div class="morebt" style="padding-top: 0px;">
+<ul id="ulStudMsgHeadTab">
+    <li><a class="tab2" onclick="" href="{:U('Index/index')}">个人信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('Index/edit')}">修改信息</a> </li>
+    <li><a class="tab1" onclick="" href="{:U('common/permiss',array('code'=>3))}">在线选课</a></li>
+    <li><a class="tab2" onclick="" href="{:U('Index/myclass')}">我的课程</a></li>
+</ul>
+</div>
+<div class="cztable">
+    <select class="form-control border-radius" style="width: 200px">
+      <option value="0">全部专业</option>
+      <volist name="major" id="vo">
+      <option value="{$vo.id}">{$vo.name}</option>
+      </volist>
+    </select>
+    <table border="0" cellspacing="0" cellpadding="0" width="100%" class="dd">
+       <tr>
+       <th>序号</th>
+       <th>课程名</th>
+       <th>学分</th>
+       <th>已选数量</th>
+       <th>可选数量</th>
+       <th>所属专业</th>
+       <th>授课老师</th>
+       <th>上课地点</th>
+       <th>上课时间</th>
+       <th>操作</th>
+       </tr>
+       <tr>
+       <volist name="data" id="data">
+        <td>{$data.id}</td>
+        <td>{$data.name}</td>
+        <td>{$data.credit}</td>
+        <td>{$data.nums}</td>
+        <td>{$data.tol_nums}</td>
+        <td>{$data.major_name}</td>
+        <td>{$data.realname}</td>
+        <td>{$data.cla_place}</td>
+        <td align="center">星期{$data.weekdays}&nbsp;&nbsp;&nbsp;{$data.jieci}节</td>
+        <td><button class="btn btn-success check" data-id="{$data.id}" data-tid='{$data.tid}'">选择</button></td>
+       </tr>
+       </volist>
+    </table>
+    <div class="pagination ue-clear">
+    <div class="pagin-list">
+        {$show}
+    </div>
+    <div class="pxofy">显示第 1 条到 {$count}条记录，总共{$count}条记录</div>
+  </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        $('select').change(function(){ 
+            var id = $('select option:selected') .val();
+            var html = '<tr><th>序号</th><th>课程名</th><th>学分</th><th>可选数量</th><th>所属专业</th><th>授课老师</th><th>上课地点</th><th>上课时间</th><th>操作</th></tr>';
+            $.ajax({url:"{:U('CheckClass')}",type:"post",data:{'id':id},success:function(res){
+                if(res.code == 1){
+                    $.each(res.data,function(k, v){
+                    html+='<tr><td class="id">'+v.id+'</td>'+
+                            '<td>'+v.name+'</td>'+
+                            '<td>'+v.credit+'</td>'+
+                            '<td>'+v.tol_nums+'</td>'+
+                            '<td>'+v.major_name+'</td>'+
+                            '<td>'+v.realname+'</td>'+
+                            '<td>'+v.cla_place+'</td>'+
+                            '<td>星期'+v.weekdays+'&nbsp;&nbsp;&nbsp;'+v.jieci+'节</td>'+
+                            '<td><button class="btn btn-success check">选择</button></td></tr>'; 
+                    });
+                    var count = '显示第 1 条到'+res.count+'条记录，总共'+res.count+'条记录';
+                    var show = res.show;
+                    // console.log(show);return;
+                }
+                $(".dd").empty().append(html);
+                $(".pagin-list").empty().append(show);
+                $(".pagination .pxofy").css("margin-top","0px");
+                $(".pxofy").empty().append(count);
+            }}); 
+       
+        }) 
+
+        $('.check').click(function(){
+            var id = $(this).data('id');
+            var tid = $(this).data('tid');
+            $.ajax({url:"{:U('check')}",type:"post",data:{'id':id,'tid':tid},success:function(res){
+               if(res.code == 1){
+              layer.msg(res.msg, {
+              icon: 1,
+              time: 2000 //1秒关闭（如果不配置，默认是3秒）
+            }, function(){
+               location.reload();
+            }); 
+          }else if(res.code == 2){
+              layer.msg(res.msg, {
+              icon: 2,
+              time: 2000 //1秒关闭（如果不配置，默认是3秒）
+            });
+          }else if(res.code == 3){
+              layer.msg(res.msg, {
+              icon: 2,
+              time: 2000 //1秒关闭（如果不配置，默认是3秒）
+            });
+          }else if(res.code == 4){
+              layer.msg(res.msg, {
+              icon: 2,
+              time: 2000 //1秒关闭（如果不配置，默认是3秒）
+            });
+          }        
+            }}); 
+          });
+        }) 
+</script>

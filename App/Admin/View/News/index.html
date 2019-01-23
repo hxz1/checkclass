@@ -1,0 +1,126 @@
+﻿<include file="Public:_meta"/>
+<title>学生列表</title>
+</head>
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 新闻管理 <span class="c-gray en">&gt;</span> 新闻列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<span class="l">
+		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+			<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+		</a> 
+		<a href="javascript:;" onclick="member_add('添加新闻/通知','{:U('add')}','','510')" class="btn btn-primary radius">
+			<i class="Hui-iconfont">&#xe600;</i> 添加新闻
+		</a>
+	</span> 
+	<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+	</div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="80">ID</th>
+				<th width="100">标题</th>
+				<th width="100">作者</th>
+				<th width="150">点击量</th>
+				<th width="130">添加时间</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo.id}" class="dels"></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.title}</td>
+				<td>{$vo.author}</td>
+				<td>{$vo.click}</td>
+				<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+				<td class="td-manage">
+				<!-- <a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> -->
+				<a title="编辑" onclick="member_edit('修改新闻/通知','http://www.checkclass.com/admin.php/news/add/id/{$vo.id}','600','510')"  class="ml-5" style="text-decoration:none;display: inline;"><i class="Hui-iconfont">&#xe6df;</i></a>
+				<a title="查看" style="text-decoration:none;display: inline;" href ='javascript:;' class="ml-5 show" data="{$vo.id}" data-title="{$vo.title}"><i class="Hui-iconfont">&#xe616;</i></a>  
+				<a title="删除" href="javascript:;" data-id="{$vo.id}" class="ml-5 del"  style="text-decoration:none;display: inline;"><i class="Hui-iconfont">&#xe6e2;</i></a>
+				<!-- <a title="删除" href="javascript:;" data-id="{$vo.id}" class="ml-5 del" style="text-decoration:none"> -->
+				</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="pagination ue-clear">
+    <div class="pagin-list">
+        {$show}
+    </div>
+    <div class="pxofy">显示第 1 条到 {$count}条记录，总共{$count}条记录</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-编辑*/
+function member_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+$('.show').on('click',function(){
+    var id= $(this).attr('data');
+    var title=$(this).attr('data-title');
+        //iframe层
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.5,
+            area: ['880px', '90%'],
+            content: "http://www.checkclass.com/admin.php/News/showContent/id?id="+id //iframe的url
+        });showContent
+    });
+$('.del').click(function(){
+	var id = $(this).data('id');
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type:'post',
+			url: '{:U('del')}',
+			dataType: 'json',
+			data:{'id':id},
+			success: function(res){
+				if(res.code == 1){
+					layer.alert('删除成功!', function(index){
+					  window.location.reload();
+					});  					
+				}else{
+					layer.msg('删除失败!',{icon:2,time:2000});
+				}	
+			},
+		});		
+	});
+});
+
+function datadel(){
+	var obj = $('.dels');
+	check_val = [];
+    for(k in obj){
+        if(obj[k].checked)
+            check_val.push(obj[k].value);
+    }
+    var id_str = check_val.join(",");
+    layer.confirm('确认要删除吗？',function(index){
+    	$.ajax({url:"{:U('batch_del')}",type:"post",data:{'id_str':id_str},success:function(res){
+	 		if(res.code == 1){
+	 			layer.alert(res.msg, function(index){
+				  window.location.reload();
+				}); 
+	 		}else if(res.code == 2){
+	 			layer.msg(res.msg,{icon:2});
+	 		}
+    	}}); 
+    });  
+}
+</script> 
+</body>
+</html>
+<include file="Public:_footer"/>

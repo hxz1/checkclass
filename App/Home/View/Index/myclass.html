@@ -1,0 +1,77 @@
+<include file="Public:head"/>     
+<h2 class="mbx">个人信息 &gt; 我的课程&nbsp;&nbsp;&nbsp;</h2>  
+<div class="morebt" style="padding-top: 0px;">
+<ul id="ulStudMsgHeadTab">
+    <li><a class="tab2" onclick="" href="{:U('Index/index')}">个人信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('Index/edit')}">修改信息</a> </li>
+    <li><a class="tab2" onclick="" href="{:U('common/permiss',array('code'=>3))}">在线选课</a></li>
+    <li><a class="tab1" onclick="" href="{:U('Index/myclass')}">我的课程</a></li>
+</ul>
+</div>
+<div class="cztable">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+       <th>序号</th>
+       <th>课程名</th>
+       <th>学分</th>
+       <th>授课老师</th>
+       <th>上课地点</th>
+       <th>上课时间</th>
+       <th <if condition="time() gt $end_time || time() lt $start_time">style="display:none"</if>>操作</th>
+       </tr>
+       <tr>
+       <volist name="data" id="data">
+        <td>{$data.id}</td>
+        <td>{$data.name}</td>
+        <td>{$data.credit}</td>
+        <td>{$data.realname}</td>
+        <td>{$data.cla_place}</td>
+        <td align="center">星期{$data.weekdays}&nbsp;&nbsp;&nbsp;{$data.jieci}节</td>
+        <td <if condition="time() gt $end_time || time() lt $start_time">style="display:none"</if>><button class="btn btn-danger check" data-id="{$data.id}"">退选</button></td>
+       </tr>
+       </volist>
+    </table>
+    <div class="pagination ue-clear">
+        <div class="pagin-list">
+            {$show}
+        </div>
+        <div class="pxofy">显示第 1 条到 {$count}条记录，总共{$count}条记录</div>
+        </div>
+</div>
+
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+$('.check').click(function(){
+    var id = $(this).data('id');
+    // layer.msg('退选时间已过!', {
+    //           icon: 2,
+    //           time: 2000 //1秒关闭（如果不配置，默认是3秒）
+    //         }, function(){
+    //            location.reload();
+    //         });
+    layer.confirm('确认要退选吗？',function(index){
+        $.ajax({
+            type:'post',
+            url: '{:U('del')}',
+            dataType: 'json',
+            data:{'id':id},
+            success: function(res){
+                if(res.code == 1){
+                    layer.alert('退选成功!', function(index){
+                      window.location.reload();
+                    });     
+                }else{
+                    layer.msg('退选失败!',{icon:1000});
+                }   
+            },
+        });     
+    });
+});
+
+
+</script>

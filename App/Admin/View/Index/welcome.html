@@ -1,0 +1,56 @@
+<include file="Public:_meta"/>
+<title>我的桌面</title>
+</head>
+<body>
+<div class="page-container">
+	<p class="f-20 text-success">欢迎您,{$Think.session.name}</p>
+	<p>当前登录IP：{$ip}</p>
+	<p>登录次数：{$data['login_times']}</p>
+	<p>上次登录时间：<php>echo date("Y-m-d H:i:s",$data['last_login_time']) </php></p>
+	<table class="table table-border table-bordered table-bg mt-20">
+		<thead>
+			<tr>
+				<th colspan="4" scope="col">服务器信息</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>服务器操作系统</td>
+				<td style="color: red"><span id="lbServerName"><php>echo PHP_OS</php></span></td>
+				<td>服务器域名/IP</td>
+				<td style="color: red"><php>echo $_SERVER['SERVER_NAME'] . ' [ ' . gethostbyname($_SERVER['SERVER_NAME']) . ' ]'</php></td>
+			</tr>
+			<tr>
+				<td>Web 服务器</td>
+				<td style="color: red"><php>echo $_SERVER["SERVER_SOFTWARE"]</php></td>
+				<td>PHP 版本</td>
+				<td style="color: red"><php>echo PHP_VERSION</php></td>
+			</tr>
+			<tr>
+				<td>安全模式 </td>
+				<td style="color: red"><php>echo (boolean) ini_get('safe_mode') ?  是: 否</php></td>
+				<td>执行时间限制</td>
+				<td style="color: red"><php>echo ini_get('max_execution_time') . '秒'</php></td>
+			</tr>
+			<tr>
+				<td>系统开发</td>
+				<td style="color: red">ThinkPHP3.2.3 框架 </td>
+				<td>服务器当前时间 </td>
+				<td style="color: red"><php>echo date("Y-m-d H:i:s",time()) </php></td>
+			</tr>
+		</tbody>
+		<thead>
+			<tr>
+				<th colspan="4" scope="col">开发团队</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="4" style="color: red">sunshine_djt &nbsp&nbsp&nbsp 14计科2班揭锦涛</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<include file="Public:_footer"/>
+</body>
+</html>

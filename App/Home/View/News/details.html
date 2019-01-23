@@ -1,0 +1,26 @@
+<link href="__HOME__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__HOME__/css/style.css" rel="stylesheet" type="text/css" />
+<script src="__HOME__/js/modernizr.js" type="text/javascript"></script>
+<include file="Public:head"/>       
+    <h2 class="mbx">
+        新闻中心 &gt; 热闻通知 &gt; 详情</h2>
+    <div class="morebt" style="padding-top: 0px;">
+        <ul>
+            <li><a class="tab2" href="Application.aspx.html">热闻通知详情</a></li>
+        </ul>
+    </div>
+    <div class="title">
+        <center>{$data.title}</center>
+    </div>
+    <div class="doc">
+        {$data.content|htmlspecialchars_decode}
+        <p style="float: right;">发布人：{$data.author}</p>
+        <p style="float: right;margin-top: 30px;margin-right: -94px;">发布时间：{$data.add_time|date="Y-m-d H:i:s",###}</p>
+        <a href="#0" class="cd-top">Top</a>
+    </div>
+
+</body>
+</html>
+<script src="__HOME__/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="__HOME__/js/main.js" type="text/javascript"></script>
+

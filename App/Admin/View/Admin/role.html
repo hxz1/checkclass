@@ -1,0 +1,52 @@
+<include file="Public:_meta"/>
+<title>修改密码</title>
+</head>
+<body>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red" data-id="{$data.id}">*</span>账户：</label>
+			<div class="formControls col-xs-8 col-sm-9"> {$data.name} </div>
+		</div>
+
+		<div class="layui-form-item">
+    <div class="row cl">
+    <label class="form-label col-xs-4 col-sm-3">&nbsp;权限：</label>
+      	<label><input name="role" type="radio" value="1" <if condition="$data.role_id eq 1">checked </if> />超级管理员</label> <br>
+		<label><input name="role" type="radio" value="2" <if condition="$data.role_id eq 2">checked </if>/>普通管理员</label> <br>
+		<!-- <label style="margin-left: 150px;"><input name="role" type="checkbox" value="3" />选课情况管理 </label> <br>
+		<label style="margin-left: 150px;"><input name="role" type="checkbox" value="4" />课程管理 </label> <br>
+		<label style="margin-left: 150px;"><input name="role" type="checkbox" value="5" />系统管理 </label> <br> -->
+    </div>
+  </div>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" id="tj" type="button" value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+
+</body>
+</html>
+<include file="Public:_footer"/>
+<script type="text/javascript">
+	$('#tj').click(function(){
+		var id = $('.c-red').data('id');
+		text = $("input:radio[name='role']:checked").val();
+		$.ajax({url:"{:U('role')}",type:"post",data:{'role_id':text,'id':id},success:function(res){
+		 		if(res.code == 1){  
+					layer.msg('修改成功！', {
+					  icon: 1,
+					  time: 1000 //1秒关闭（如果不配置，默认是3秒）
+					}, function(){
+					  parent.location.reload();
+					});   
+		 		}else if(res.code == 2){
+		 			layer.msg('修改失败！',{icon: 2,time: 1000});
+		 		}
+	    	}}); 
+	});
+
+</script>
